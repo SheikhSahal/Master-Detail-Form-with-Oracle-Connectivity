@@ -1,0 +1,39 @@
+﻿@model List<Master_detail.Models.EMP>
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h2>Departs</h2>
+<a href="@Url.Action("Index","Home")" class="btn btn-success"><i class="fas fa-user-plus">&nbsp;Create</i></a>
+
+<br />
+<br />
+
+<table class="table">
+    <tr>
+        <th class="upper">Deptno</th>
+        <th class="upper">Dname</th>
+        <th class="upper">Location</th>
+        
+    </tr>
+    
+    @foreach (var s in Model)
+    {
+        <tr>
+            <td class="upper">@s.Deptid</td>
+            <td class="upper">@s.Dname</td>
+            <td class="upper">@s.Location</td>
+            <td><a href="@Url.Action("Index","Details",new { id = @s.Deptid })" class="btn btn-warning"><i class="fas fa-file"></i></a></td>
+            <td><a href="@Url.Action("Index","Edit",new { id = @s.Deptid })" class="btn btn-info"><i class="fas fa-edit"></i></a></td>
+        </tr>
+        
+
+    }
+
+</table>
+<style>
+    .upper {
+        text-transform:uppercase;
+    }
+</style>

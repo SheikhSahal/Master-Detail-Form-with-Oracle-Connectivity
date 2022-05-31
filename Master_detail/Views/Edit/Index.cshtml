@@ -1,0 +1,540 @@
+﻿@model Master_detail.Models.MergeModelDetails
+@{
+    ViewBag.Title = "Index";
+}
+
+@using (Html.BeginForm())
+{
+    <table class="table" id="master">
+        <tr>
+            <th>DEPTNO</th>
+            <th>DNAME</th>
+            <th>LOCATION</th>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.TextBoxFor(m => m.EMP.Deptid, new { id = "dept", @class = "dept form-control upper", @Placeholder = "Deptno", type = "number", @maxlength = 2, @readonly = true })
+
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.EMP.Dname, new { id = "dname", @class = "dname form-control upper", @Placeholder = "Dname", @maxlength = 100 })
+
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.EMP.Location, new { id = "loc", @class = "loc form-control upper", @Placeholder = "Location", @maxlength = 50 })
+
+            </td>
+
+        </tr>
+
+    </table>
+
+
+    <table class="table" id="detail">
+        <tr>
+            <th>EMPNO</th>
+            <th>ENAME</th>
+            <th>JOB</th>
+            <th>MGR</th>
+            <th>HIREDATE</th>
+            <th>SAL</th>
+            <th>COMM</th>
+            <th>DEPTNO</th>
+            <th>&nbsp;</th>
+        </tr>
+        <tr class="mycontainer" id="mainrow">
+            <td class="col-md-1">
+                @Html.TextBoxFor(m => m.EMPNO.EMPNO, new
+           {
+               id = "empno",
+               @readonly = true,
+               @Placeholder = "Empno",
+               @type = "number",
+               @maxlength = 4,
+               @class = "empno form-control width"
+
+
+           })
+                <span class="error">*Empno required</span>
+            </td>
+
+            <td>
+                @Html.TextBoxFor(m => m.EMP.ENAME, new { id = "ename", @class = "ename form-control upper", @Placeholder = "Ename", @maxlength = 100 })
+                <span class="error">*Ename required</span>
+
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.EMP.JOB, new { id = "job", @class = "job form-control upper", @Placeholder = "Job", @maxlength = 9 })
+                <span class="error">*Job required</span>
+
+            </td>
+
+            <td>
+                @Html.TextBoxFor(m => m.EMP.MGR, new { id = "mgr", @class = "mgr form-control upper", @Placeholder = "MGR", type = "number", @maxlength = 4 })
+                <span class="error">*MGR required</span>
+            </td>
+
+            <td>
+                @Html.TextBoxFor(m => m.EMP.HIREDATE, new { id = "hiredate", @class = "hiredate form-control date upper", @Placeholder = "Hiredate", autocomplete = "off", type = "date" })
+                <span class="error">*Hiredate required</span>
+            </td>
+
+            <td>
+                @Html.TextBoxFor(m => m.EMP.SAL, new { id = "sal", @class = "sal form-control upper", @Placeholder = "Sal", type = "number", @maxlength = 7 })
+                <span class="error">*Sal required</span>
+            </td>
+
+            <td>
+                @Html.TextBoxFor(m => m.EMP.COMM, new { id = "comm", @class = "comm form-control upper", @Placeholder = "Comm", type = "number", @maxlength = 7 })
+                <span class="error">*Comm required</span>
+            </td>
+
+            <td class="col-md-2">
+                @Html.DropDownListFor(m => m.EMP.DEPTNO, (IEnumerable<SelectListItem>)ViewBag.drop, new { id = "deptno", @class = "deptno form-control upper", @Placeholder = "Deptno", type = "number", @maxlength = 2 })
+                <span class="error">*Deptno required</span>
+            </td>
+            <td>
+                @Html.Hidden("state", null, new { id = "state", @class = "state form-control collapse", type = "text", @placeholder = "State", @Value = "N" })
+            </td>
+            <td>
+                @*<input type="button" id="add" value="add" style="width:80px" class="btn btn-success" />*@
+                <a href="#" id="add" class="add btn btn-success"><i class="fas fa-plus"></i></a>
+            </td>
+            <td>
+                <a href="#" id="update" class="update btn collapse btn-primary"><i class="fas fa-pen-alt"></i></a>
+            </td>
+            <td>
+                <a href="#" id="delete" class="delete btn collapse btn-danger"><i class="fas fa-trash-alt"></i></a>
+            </td>
+
+        </tr>
+    </table>
+
+    <table id="ndetails" class="table orderdetailsItems">
+
+
+        @foreach (var s in ViewBag.emp)
+                {
+
+            <tr>
+                <td>
+                    @*<input type="number" name="EMPNO" value="@s.EMPNO" class="form-control" />*@
+                    @Html.TextBoxFor(m => m.EMP.EMPNO, new
+               {
+                   id = "Mempno",
+                   @readonly = true,
+                   @Placeholder = "Empno",
+                   @type = "number",
+                   @maxlength = 4,
+                   @class = "empno form-control upper",
+                   @Value = @s.EMPNO
+
+               })
+
+                </td>
+
+                <td>
+                    @Html.TextBoxFor(m => m.EMP.ENAME, new { id = "Mename", @class = "ename form-control disable upper", @Placeholder = "Ename", @maxlength = 100, @Value = @s.ENAME })
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.EMP.JOB, new { id = "Mjob", @class = "job form-control disable upper", @Placeholder = "Job", @maxlength = 9, @Value = @s.JOB })
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.EMP.MGR, new { id = "Mmgr", @class = "mgr form-control disable upper", @Placeholder = "MGR", type = "number", @maxlength = 4, @Value = @s.MGR })
+
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.EMP.HIREDATE, new
+               {
+                   @class = "hiredate form-control disable upper date",
+                   @Placeholder = "Hiredate",
+                   autocomplete = "off",
+                   @Value = @s.HIREDATE,
+
+
+               })
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.EMP.SAL, new { id = "Msal", @class = "sal form-control disable upper", @Placeholder = "Sal", type = "number", @maxlength = 7, @Value = @s.SAL })
+
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.EMP.COMM, new { id = "Mcomm", @class = "comm form-control disable", @Placeholder = "Comm", type = "number", @maxlength = 7, @Value = @s.COMM })
+
+                </td>
+                <td class="col-md-2">
+                    @Html.DropDownListFor(m => m.EMP.DEPTNO, (IEnumerable<SelectListItem>)ViewBag.drop, new { id = "Mdeptno", @class = "deptno form-control disable upper", @Placeholder = "Deptno", type = "number", @maxlength = 2 })
+                </td>
+                <td>
+                    @Html.Hidden("state", null, new { id = "state", @class = "state form-control collapse", type = "text", @placeholder = "State", @Value = "N" })
+                </td>
+                <td>
+                    <a href="#" id="update" class="update btn btn-primary"><i class="fas fa-pen-alt"></i></a>
+                </td>
+                <td>
+                    <a href="#" id="delete" class="delete btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                </td>
+            </tr>
+        }
+
+
+
+
+    </table>
+    <div id="orderItems">
+        <table class="table table-responsive disable orderdetailsItems" id="orderdetailsItems"></table>
+        <span id="orderItemError" style="color:red"></span>
+    </div>
+        <div style="padding:10px 0; text-align:right">
+            <input id="submit" type="button" value="Save" class="btn btn-warning" style="padding:10px 20px" />
+            @ViewBag.show
+        </div>
+
+
+}
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script type="text/javascript">
+
+
+    var p = $('#master .dept').val();
+
+    $('#ndetails .deptno').val(p);
+
+
+    //date update
+    $('#ndetails').on('click', '.hiredate', function () {
+        var s = $(this).parent().parent("tr");
+        var onerow = s.find('.hiredate');
+        onerow.prop("type", "date");
+    })
+
+
+    //update button click event
+    $('#ndetails').on('click', '.update', function () {
+        var row = $(this).parent().parent("tr");
+        row.find('.state').val("U");
+        if (row.find('.state').val("U")) {
+            var s = $(this).parent().parent("tr");
+            var onerow = s.find('.ename,.job,.mgr,.hiredate,.sal,.comm,.deptno');
+            onerow.prop("disabled", false);
+
+        }
+    })
+
+
+
+
+    $('#ndetails').on('click', '.delete', function () {
+        var row = $(this).parent().parent("tr");
+        row.find('.state').val("D");
+        if (row.find('.state').val("D")) {
+            var a = $(this).parent().parent("tr");
+            var sonerow = a.addClass('collapse');
+        }
+    })
+
+
+
+
+
+    $(document).ready(function () {
+        $('#ndetails input[type="text"]').prop("disabled", true);
+        $('#ndetails input[type="number"]').prop("disabled", true);
+        $('#ndetails .deptno').prop("disabled", true);
+
+        //$('.deptno').on('change', function () {
+        //    responseId = $(this).val();
+
+
+
+        //Add button click event
+        $('#add').click(function () {
+
+            var s = $('.deptno').val();
+
+
+            //validation and add records
+            var isAllValid = true;
+
+            if (!($('#empno').val().trim() != '' && !isNaN($('#empno').val().trim()))) {
+                isAllValid = false;
+                $('#empno').siblings('span.error').css('visibility', 'visible');
+            }
+            else {
+                $('#empno').siblings('span.error').css('visibility', 'hidden');
+            }
+
+
+
+            if (!($('#ename').val().trim() != '')) {
+                isAllValid = false;
+                $('#ename').siblings('span.error').css('visibility', 'visible');
+            }
+            else {
+                $('#ename').siblings('span.error').css('visibility', 'hidden');
+            }
+
+            if (!($('#job').val().trim() != '')) {
+                isAllValid = false;
+                $('#job').siblings('span.error').css('visibility', 'visible');
+            }
+            else {
+                $('#job').siblings('span.error').css('visibility', 'hidden');
+            }
+
+
+            if (!($('#hiredate').val().trim() != '')) {
+                isAllValid = false;
+                $('#hiredate').siblings('span.error').css('visibility', 'visible');
+            }
+            else {
+                $('#hiredate').siblings('span.error').css('visibility', 'hidden');
+            }
+
+
+            if (!($('#sal').val().trim() != '' && !isNaN($('#sal').val().trim()))) {
+                isAllValid = false;
+                $('#sal').siblings('span.error').css('visibility', 'visible');
+            }
+            else {
+                $('#sal').siblings('span.error').css('visibility', 'hidden');
+            }
+
+
+            if (!($('#deptno').val().trim() != '' && !isNaN($('#deptno').val().trim()))) {
+                isAllValid = false;
+                $('#deptno').siblings('span.error').css('visibility', 'visible');
+            }
+            else {
+                $('#deptno').siblings('span.error').css('visibility', 'hidden');
+            }
+
+
+
+            if (isAllValid) {
+                var $newRow = $('#mainrow').clone().removeAttr('id');
+                //$('.pc', $newRow).val($('#productCategory').val());
+                //$('.product', $newRow).val($('#product').val());
+
+                //Replace add button with remove button
+                //$('#add', $newRow).addClass('update').val('up').removeClass('btn-success').addClass('btn-primary');
+                $('#ename,#job,#mgr,#hiredate,#sal,#comm,#deptno', $newRow).addClass('disable');
+                $('#state', $newRow).val("A");
+                $('#deptno', $newRow).val(s);
+                s = null;
+
+
+
+                //remove id attribute from new clone row
+                $('#empno,#ename,#job,#mgr,#hiredate,#sal,#comm,#deptno,#add', $newRow).removeAttr('id');
+                $('span.error', $newRow).remove();
+                //append clone row
+                $('#orderdetailsItems').append($newRow);
+
+                //clear select data
+                //$('#productCategory,#product').val('0');
+                //$('#quantity,#rate').val('');
+
+
+
+                var empno = parseInt($('#empno').val()) + 1;
+                $('#empno').val(empno);
+                $('#ename,#job,#mgr,#hiredate,#sal,#comm').val('');
+                $('#orderItemError').empty();
+
+
+                $('#orderdetailsItems tr td a.add').hide();
+
+
+                //$('#orderdetailsItems tr td a.update').removeClass('collapse').addClass('collapse.in');
+                $('#orderdetailsItems tr td a.delete').removeClass('collapse').addClass('collapse.in');
+
+            }
+        })
+        //})
+
+
+        //remove button click event
+
+        //$('#orderdetailsItems').on('click', '.remove', function () {
+        //    $(this).parents('tr').remove();
+        //});
+
+        //update button click event
+        $('#orderdetailsItems').on('click', '.update', function () {
+            var row = $(this).parent().parent("tr");
+            row.find('.state').val("U");
+            if (row.find('.state').val("U")) {
+                var s = $(this).parent().parent("tr");
+                var onerow = s.find('.ename,.job,.mgr,.hiredate,.sal,.comm,.deptno');
+                onerow.prop("disabled", false);
+            }
+        })
+
+        //Delete button click event
+        $('#orderdetailsItems').on('click', '.delete', function () {
+            var row = $(this).parent().parent("tr");
+            row.find('.state').val("D");
+            if (row.find('.state').val("D")) {
+                var a = $(this).parent().parent("tr");
+                var sonerow = a.addClass('collapse');
+            }
+        })
+
+
+        //#ndetails,#orderdetailsItems
+
+        $('#submit').click(function () {
+            var isAllValid = true;
+
+            //validate order items
+            $('#orderItemError').text('');
+            var list = [];
+            var errorItemCount = 0;
+            $('.orderdetailsItems tbody tr').each(function (index, ele) {
+                if (
+                    //$('select.product', this).val() == "0" ||
+                    $('.empno', this).val() == "" ||
+                    isNaN($('.empno', this).val()) ||
+                    $('.ename', this).val() == "" ||
+                    $('.job', this).val() == "" ||
+                    $('.hiredate', this).val() == "" ||
+                    $('.sal', this).val() == "" ||
+                    isNaN($('.sal', this).val()) ||
+                    $('.deptno', this).val() == "" ||
+                    isNaN($('.deptno', this).val())
+
+                    //$('.rate', this).val() == "" ||
+                    //isNaN($('.rate', this).val())
+                    ) {
+                    errorItemCount++;
+                    $(this).addClass('error');
+                } else {
+                    var orderItem = {
+                        //ProductID: $('select.product', this).val(),
+                        //Quantity: parseInt($('.quantity', this).val()),
+                        //Rate: parseFloat($('.rate', this).val())
+                        EMPNO: $('.empno', this).val(),
+                        ENAME: $('.ename', this).val(),
+                        JOB: $('.job', this).val(),
+                        MGR: $('.mgr', this).val(),
+                        HIREDATE: $('.hiredate', this).val(),
+                        SAL: $('.sal', this).val(),
+                        COMM: $('.comm', this).val(),
+                        DEPTNO: $('.deptno', this).val(),
+                        STATE: $('.state', this).val(),
+                    }
+                    debugger
+                    JSON.stringify(orderItem)
+                    list.push(orderItem);
+                }
+            })
+
+
+
+            if (errorItemCount > 0) {
+                $('#orderItemError').text(errorItemCount + " invalid entry in record.");
+                isAllValid = false;
+            }
+
+            if (list.length == 0) {
+                $('#orderItemError').text('At least 1 record required.');
+                isAllValid = false;
+            }
+
+            if ($('#dept').val().trim() == '') {
+                $('#dept').siblings('span.error').css('visibility', 'visible');
+                isAllValid = false;
+            }
+            else {
+                $('#dept').siblings('span.error').css('visibility', 'hidden');
+            }
+
+            if ($('#dname').val().trim() == '') {
+                $('#dname').siblings('span.error').css('visibility', 'visible');
+                isAllValid = false;
+            }
+            else {
+                $('#dname').siblings('span.error').css('visibility', 'hidden');
+            }
+
+            if ($('#loc').val().trim() == '') {
+                $('#loc').siblings('span.error').css('visibility', 'visible');
+                isAllValid = false;
+            }
+            else {
+                $('#loc').siblings('span.error').css('visibility', 'hidden');
+            }
+
+            if (isAllValid) {
+                debugger
+                var datas = {
+                    Deptid: $('#dept').val().trim(),
+                    Dname: $('#dname').val().trim(),
+                    Location: $('#loc').val().trim(),
+                    //OrderDetails: list
+                    EMP: list
+                }
+                debugger
+                $.ajax({
+                    type: 'POST',
+                    url: '/Edit/Index',
+                    //data: datas,
+                    //contentType: 'application/json',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({ Deptid: datas.Deptid, Dname: datas.Dname, EMP: datas.EMP, Location: datas.Location }),
+                    success: function (data) {
+                        if (data.status) {
+                            window.location.href = (data.newurl);
+
+                            //  here we will clear the form/
+                            list = [];
+                            $('#dept,#dname,#loc').val('');
+                            $('#orderdetailsItems').empty();
+                        }
+                        else {
+                            alert('Error');
+                        }
+
+                        $('#submit').text('Save');
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        $('#submit').text('Save');
+                    }
+                });
+            }
+        })
+    })
+    //});
+</script>
+
+
+<style>
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+    tr.error {
+        background-color: rgba(255,0,0,0.35);
+    }
+
+    .upper {
+        text-transform: uppercase;
+    }
+
+    .width {
+        width:105px;
+    }
+
+    .date {
+        width:160px;
+    }
+</style>

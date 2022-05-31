@@ -1,0 +1,57 @@
+﻿@model Master_detail.Models.MergeModelDetails
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+        <table class="table">
+            <tr>
+                <th>DEPTNO</th>
+                <th>DNAME</th>
+                <th>LOCATION</th>
+            </tr>
+
+            <tr>
+                <td class="upper">@Model.EMP.Deptid</td>
+                <td class="upper">@Model.EMP.Dname</td>
+                <td class="upper">@Model.EMP.Location</td>
+
+            </tr>
+
+        </table>
+
+
+        <table class="table">
+            <tr>
+                <th>EMPNO</th>
+                <th>ENAME</th>
+                <th>JOB</th>
+                <th>MGR</th>
+                <th>HIREDATE</th>
+                <th>SAL</th>
+                <th>COMM</th>
+                <th>DEPTNO</th>
+            </tr>
+            @foreach (var s in Model.EMPlist)
+            {
+                <tr>
+                    <td class="upper">@s.EMPNO</td>
+                    <td class="upper">@s.ENAME</td>
+                    <td class="upper">@s.JOB</td>
+                    <td class="upper">@s.MGR</td>
+                    <td class="upper">@s.HIREDATE</td>
+                    <td class="upper">@s.SAL</td>
+                    <td class="upper">@s.COMM</td>
+                    <td class="upper">@s.DEPTNO</td>
+                </tr>
+            }
+        </table>
+
+
+<style>
+    .upper {
+        text-transform:uppercase;
+    }
+</style>

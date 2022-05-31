@@ -1,0 +1,154 @@
+﻿@model Master_detail.Models.EMP
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Master Detail</h2>
+
+@using (Html.BeginForm())
+{
+
+    <div class="container">
+        <div class="master">
+            @*@Html.Partial("Dept")*@
+
+            <table class="table table-responsive">
+
+                <tr>
+                    <td>Deptno</td>
+                    <td>Dname</td>
+                    <td>Location</td>
+                </tr>
+                <tr>
+
+                    <td class="col-sm-1">
+                        @Html.TextBoxFor(m => m.Deptid, new { id = "dept", @class = "dept form-control upper", @Placeholder = "Deptno", type = "number", @maxlength = 2,@readonly=true })
+                        <span class="error">*Deptno required</span>
+                    </td>
+
+
+                    <td class="col-md-1">
+                        @Html.TextBoxFor(m => m.Dname, new { id = "dname", @class = "dname form-control upper", @Placeholder = "Dname", @maxlength = 100 })
+                        <span class="error">*Name required</span>
+                    </td>
+
+
+                    <td class="col-md-1">
+                        @Html.TextBoxFor(m => m.Location, new { id = "loc", @class = "loc form-control upper", @Placeholder = "Location", @maxlength = 50 })
+                        <span class="error">*Location required</span>
+                    </td>
+
+                </tr>
+
+            </table>
+        </div>
+
+        <br />
+
+        <div class="details">
+            <table class="table table-responsive" id="table">
+                <tr>
+                    <td>Empno</td>
+                    <td>Ename</td>
+                    <td>Job</td>
+                    <td>MGR</td>
+                    <td>Hiredate</td>
+                    <td>Sal</td>
+                    <td>Comm</td>
+                    <td>Deptno</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr class="mycontainer" id="mainrow">
+                    <td class="col-md-1">
+
+
+                        @Html.TextBoxFor(m => m.EMPNO, new
+                   {
+                       id = "empno",
+                       @readonly = true,
+                       @Placeholder = "Empno",
+                       @type = "number",
+                       @maxlength = 4,
+                       @class = "empno form-control upper"
+
+
+                   })
+                        <span class="error">*Empno required</span>
+                    </td>
+
+                    <td class="col-md-2">
+                        @Html.TextBoxFor(m => m.ENAME, new { id = "ename", @class = "ename form-control upper", @Placeholder = "Ename", @maxlength = 100 })
+                        <span class="error">*Ename required</span>
+
+                    </td>
+                    <td class="col-md-2">
+                        @Html.TextBoxFor(m => m.JOB, new { id = "job", @class = "job form-control upper", @Placeholder = "Job", @maxlength = 9 })
+                        <span class="error">*Job required</span>
+
+                    </td>
+
+                    <td class="col-md-1">
+                        @Html.TextBoxFor(m => m.MGR, new { id = "mgr", @class = "mgr form-control upper", @Placeholder = "MGR", type = "number", @maxlength = 4 })
+                        <span class="error">*MGR required</span>
+                    </td>
+
+                    <td class="col-md-2">
+                        @Html.TextBoxFor(m => m.HIREDATE, new { id = "hiredate", @class = "hiredate form-control upper", @Placeholder = "Hiredate", autocomplete = "off", type = "date" })
+                        <span class="error">*Hiredate required</span>
+                    </td>
+
+                    <td class="col-md-1">
+                        @Html.TextBoxFor(m => m.SAL, new { id = "sal", @class = "sal form-control upper", @Placeholder = "Sal", type = "number", @maxlength = 7 })
+                        <span class="error">*Sal required</span>
+                    </td>
+
+                    <td class="col-md-1">
+                        @Html.TextBoxFor(m => m.COMM, new { id = "comm", @class = "comm form-control upper", @Placeholder = "Comm", type = "number", @maxlength = 7 })
+                        <span class="error">*Comm required</span>
+                    </td>
+
+                    <td class="col-md-2">
+                        @Html.DropDownListFor(m => m.DEPTNO, (IEnumerable<SelectListItem>)ViewBag.drop, new { id = "deptno", @class = "deptno form-control upper", @Placeholder = "Deptno", type = "number", @maxlength = 2 })
+                        <span class="error">*Deptno required</span>
+                    </td>
+                    <td>
+                        @*<input type="button" id="add" value="add" style="width:80px" class="btn btn-success" />*@
+                        <a href="#" id="add" class="add btn btn-success"><i class="fas fa-plus"></i></a>
+                    </td>
+                    <td>
+                        <a href="#" id="delete" class="delete btn btn-danger collapse"><i class="fas fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+            </table>
+            <div id="orderItems">
+                <table class="table table-responsive" id="orderdetailsItems"></table>
+                <span id="orderItemError" style="color:red"></span>
+            </div>
+            <div style="padding:10px 0; text-align:right">
+                <input id="submit" type="button" value="Save" class="btn btn-warning" style="padding:10px 20px" />
+            </div>
+        </div>
+    </div>
+
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="~/Scripts/MyScript.js"></script>
+
+<style>
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+    tr.error {
+        background-color: rgba(255,0,0,0.35);
+    }
+
+    .upper {
+        text-transform: uppercase;
+    }
+</style>
